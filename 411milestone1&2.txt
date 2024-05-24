@@ -1,0 +1,70 @@
+Purpose
+The purpose of the first project milestone is to ensure that your J-- compiler has a functioning scanner.
+
+Specification
+Write a lexical analyzer (scanner) for J--. Your scanner should have at least the following features:
+
+step1:
+No communication with any other part of the compiler. In other words, your scanner shouldn't be using a symbol table or getting any feedback from the parser. Having your scanner use global error/warning routines or other compiler infrastructure code is okay, however.
+There should be an interface by which your parser can request/consume tokens. If you're using compiler tools, you'll need to adhere to the required tool interface; otherwise, a “lex/unlex” or “peek/match” interface is suitable.
+Your scanner should produce appropriate tokens and attributes. Minimal attributes would be a position (line number is sufficient) and the token's lexeme (where meaningful). You should have a separate token for each reserved word.
+One of your main routine for this step should call the scanner repeatedly via its interface and print out all the tokens for a given input program to the standard output. Be sure to print each token's type along with all the token's attributes. This is what you'd typically want to do to test your scanner, so this milestone essentially involves what you'd be doing anyway.
+
+step2:
+The parser must make use of your scanner from the step one. Feel free to revisit your scanner code and make any necessary changes, but try to keep them to a minimum.
+The parser may request tokens from your scanner, and may use global error/warning routines or other compiler infrastructure code. There should not be any lexical feedback or use of a symbol table.
+There should be an interface by which your parser is called once to perform syntax analysis of an entire J-- input file.
+The main routine for this step should call the parser once via its interface and print out a textual representation of the AST you construct given a successful parse, or if unsuccessful output appropriate warning/error messages.
+Your AST design must clearly reflect operator precedence and associativity correctly, along with statement nesting structure, but beyond that the design is your choice.
+
+And the fine print:
+
+Your code must be written in C, C++, Go, or Java.
+For step one, you may use any of lex, flex, or JFlex if you choose, but you do not have to; you can write the scanner by hand. If you're using flex, you might find Levine's book flex & bison useful; it's accessible for free via the library.
+For step two, you may use any of Yacc, Bison, CUP, or Goyacc if you choose, but you do not have to. This includes C, C++, and Java parsers that Bison produces. Your scanner may still use lex, flex, or JFlex as before. CUP's JAR files can be downloaded from the CUP web site, and you can find Goyacc installed on the CPSC computers as ~aycock/411/bin/goyacc.
+If you are using C or C++, you may ignore dynamic memory deallocation if you want.
+Your program should accept exactly one command-line argument: the pathname of an input file.
+The standard input should be ignored.
+Normal (non-error) output should go to the standard output.
+Error and warning messages should go to standard error. You may exit after an error message. Any errors and warnings, at a minimum, must identify the input file name, the line number (or as close to it as may be ascertained), and a human-readable diagnostic message that's as specific as possible.
+Your program must return an appropriate return value: zero on success, nonzero on failure or error.
+Under no circumstances should your program exit in an uncontrolled fashion, like a segmentation fault, bus error, or exception.
+Your code should be documented in a professional manner, and should mention any limitations that your program has.
+You should observe good coding practices; also, any compiled code of yours must compile cleanly with no warnings. (C/C++: compile with -Wall.) Idioms must be appropriate to the language you have chosen. Be sure to check for error conditions and handle exceptions appropriately.
+There are two exceptions to the “no warnings” rule above. First, if the warning is due to tool-generated code that you can't do anything about, you don't need to worry about it. Second, if the parser generator complains about a shift/reduce conflict on the dangling else, you may leave it as is. In both cases, you should be verifying that the cause of the warning is what you think it is!
+Your milestone submission must be compiled and tested on the CPSC machines.
+
+
+I have supplied twelve(for step one) + five(for step two) test files, and you will need to come up with some of your own test files too(for step two). Remember that you're just at the parser stage, and test files do not need to adhere to J-- semantics yet. All your test files should include a description for the TA of what they are testing exactly.
+
+My test files and the reference compiler may be found on the CPSC machines at ~aycock/411/TEST. Note that this is not accessible via the web. Where applicable, I've additionally provided a graph representation for my test files to help you in understanding the AST structure the reference compiler generates.
+
+How to assess your code and make your case
+The philosophy here is that you should be at the stage in your development as a programmer to judge your own code and its functionality. The TA's time is better spent giving you focused feedback that'll help you improve your skills instead of hair-splitting marks, and this process will help you get better at realistically assessing your own work.
+
+There are four dimensions in which you can assess your milestone submission, which we talked about and you contributed suggestions for in the first class; these are distilled from that conversation and the Jamboard you used. The general principle when articulating why you earned a grade is, as with any convincing argument, to supply evidence. I've suggested types of possible evidence you might supply to help get you started – you can copy and paste your compiler's output, or use screenshots of the output, or similar methods to capture evidence to include in your document. Especially as the compiler develops, this evidence may get lengthy, and you can place it in appendices in your document so as not to disrupt the main flow of your argument. Make it easy for your TA to quickly look through your argument and say yes.
+
+Tool properties.
+
+Good error and warning messages output. Possible evidence: error and warning messages that identify the problem as accurately as possible, complete with location information (i.e., the line number).
+Predictable: correct inputs parsed correctly, erroneous inputs rejected. Possible evidence: show your compiler's output for test inputs – ensure everything pertinent, like the AST and its contents, is displayed in an easy-to-read manner.
+Development practices.
+
+Committing work regularly to your CPSC Gitlab repo. Possible evidence: commit history.
+Code qualities. Possible evidence: code in repo, but you may want to highlight specific things you did or didn't do to achieve these goals.
+
+Code is readable: thoughtful use of whitespace and formatting, no gratuitously overcomplicated code.
+Code is modular.
+Code is extensible.
+Code is consistent, e.g., with respect to variable and function naming conventions.
+Code is consistent with respect to the implementation language, i.e., are appropriate idioms and libraries used?
+Code is well documented: important information is included, extraneous information is excluded.
+Speed: code should not be unreasonably slow.
+Easy to build, and building without errors or warnings. Possible evidence: show the compilation on the CPSC Linux machines. Note that if your TA needs to build and run your code themselves, they'll be doing it on the CPSC Linux machines, so if your code doesn't build on there then that'll be a problem.
+Tool usage, if applicable: are pattern-matching facilities of the scanner generator used appropriately?
+Relationship with the environment.
+
+Consistent with the environment: error and warning messages sent to stderr, regular output sent to stdout, exit status code set appropriately.
+Easy to run. Since the compiler's audience is you and the TA, it should be easy to run in the sense that it works to spec the same as the many others they have to look at, i.e., a single command-line argument.
+Meta-documentation: is the way to build and run your milestone code clearly documented in the repo's README.md? Possible evidence: README.md.
+What happens if the TA disagrees? They'll contact you, and you and TA can have a respectful conversation about the disparate points of view, and I expect in most cases come to an amicable resolution. If that doesn't happen, then I'll wade in and have a look.

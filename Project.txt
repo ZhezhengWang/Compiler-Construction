@@ -1,0 +1,5 @@
+Your name： Zhezheng Wang
+Your UCID： 30045625
+Your ucalgary.ca email address：zhezheng.wang1@ucalgary.ca
+The URL for your CPSC Gitlab repo; all the code along with build instructions should be located there, as well as your compiler's output for the supplied test files.
+https://gitlab.cpsc.ucalgary.ca/zhezheng.wang1/final-project

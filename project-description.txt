@@ -1,0 +1,19 @@
+The Milestone 2 consists of four files:
+lexer.l, parser.y jmm-types.h and a Makefile
+
+lexer.l:
+Defines all tokens including keywords, number, boolean and string litterals. It is used as input to flex, which generates a file lexer.c that contains the c code for the lexer. The lexer recognizes each token and returns a corresponding id against each token. The ids are generated in a header file using the bison tool using the 'bison -d -o <out> <in>' command. This header file is then used in the lexer for the ids.
+
+jmm-types.h:
+defines the types used in parsing including Abstract Syntax Tree (AST) and the symbol table structures
+
+parser.y:
+This file contains the types of tokens, AST management functions, Symbol table management function, the grammer deffination and actions against grammer nodes, the error handling functions and a main().
+
+The logic is implemented against each grammer rule. The parser uses two passes to parse the code. In the first pass all global variables and functions are collected in the symbol table, no error reporting is done diring the first pass. In the second pass, the global variable and functions are already present in the symbol table, so their types can be extracted from the symbol table in the second pass to validate types. 
+
+The main functions starts by creating entries for predefined functions in the AST. This way, we dont need to put special checks in function calls and the types for the predefined functions can be tested just like other functions.
+
+  
+
+
